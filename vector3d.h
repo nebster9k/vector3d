@@ -50,6 +50,7 @@ class Vector3D
       void set(double x, double y, double z);
 
       double length() const;
+      bool setLength(double length);
 
       double distance(const Vector3D &vector) const;
       double distance(double x, double y, double z) const;

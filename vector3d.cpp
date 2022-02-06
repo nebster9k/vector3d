@@ -136,6 +136,17 @@ double Vector3D::length() const
    return sqrt(pow(pX,2.0)+pow(pY,2.0)+pow(pZ,2.0));
 }
 
+bool Vector3D::setLength(double length)
+{
+   if(isNotZero(length))
+   {
+      if(Vector3D::isZero(pX) && Vector3D::isZero(pY) && Vector3D::isZero(pZ)) return false;
+      double factor=sqrt(pow(pX,2.0)+pow(pY,2.0)+pow(pZ,2.0))/length;
+      pX=pX/factor; pY=pY/factor; pZ=pZ/factor;
+   } else pX=pY=pZ=0.0;
+   return true;
+}
+
 double Vector3D::distance(const Vector3D &vector) const
 {
    return sqrt(pow(vector.pX-pX,2.0)+pow(vector.pY-pY,2.0)+pow(vector.pZ-pZ,2.0));
