@@ -20,6 +20,8 @@
 class Vector3D
 {
    public:
+      enum AngularUnits {Radians,Degrees};
+
       Vector3D();
       Vector3D(double x, double y, double z);
       Vector3D(const Vector3D &vector);
@@ -55,11 +57,8 @@ class Vector3D
       double distance(const Vector3D &vector) const;
       double distance(double x, double y, double z) const;
 
-      double angleRad(const Vector3D &vector) const;
-      double angleRad(double x, double y, double z) const;
-
-      double angleDeg(const Vector3D &vector) const;
-      double angleDeg(double x, double y, double z) const;
+      double angle(const Vector3D &vector, Vector3D::AngularUnits units=Vector3D::AngularUnits::Radians) const;
+      double angle(double x, double y, double z, Vector3D::AngularUnits units=Vector3D::AngularUnits::Radians) const;
 
       bool isZero() const;
 

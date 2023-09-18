@@ -222,69 +222,69 @@ TEST_CASE("Angle methods")
 {
    SECTION("Radians simple instance")
    {
-      CHECK(Vector3D(1.235,0.000,0.000).angleRad(Vector3D(23.678,0.000,0.000))==Catch::Approx(0.0).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angleRad(Vector3D(-18.90589543,23.94807212,31.77961845))==Catch::Approx(0.0).epsilon(1.0e-9));
-      CHECK(Vector3D(3.436,0,0).angleRad(Vector3D(0,-5.346,0))==Catch::Approx(1.570796327).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angleRad(Vector3D(21.25783696,19.24983078,-1.85961620))==Catch::Approx(1.570796327).epsilon(1.0e-9));
-      CHECK(Vector3D(0.000,2.567,0.000).angleRad(Vector3D(0.000,-14.346,0.000))==Catch::Approx(3.141592653).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angleRad(Vector3D(12.33284893,-15.62200303,-20.73074162))==Catch::Approx(3.141592653).epsilon(1.0e-9));
+      CHECK(Vector3D(1.235,0.000,0.000).angle(Vector3D(23.678,0.000,0.000))==Catch::Approx(0.0).epsilon(1.0e-9));
+      CHECK(Vector3D(-25.017,31.689,42.052).angle(Vector3D(-18.90589543,23.94807212,31.77961845))==Catch::Approx(0.0).epsilon(1.0e-9));
+      CHECK(Vector3D(3.436,0,0).angle(Vector3D(0,-5.346,0))==Catch::Approx(1.570796327).epsilon(1.0e-9));
+      CHECK(Vector3D(-25.017,31.689,42.052).angle(Vector3D(21.25783696,19.24983078,-1.85961620))==Catch::Approx(1.570796327).epsilon(1.0e-9));
+      CHECK(Vector3D(0.000,2.567,0.000).angle(Vector3D(0.000,-14.346,0.000))==Catch::Approx(3.141592653).epsilon(1.0e-9));
+      CHECK(Vector3D(-25.017,31.689,42.052).angle(Vector3D(12.33284893,-15.62200303,-20.73074162))==Catch::Approx(3.141592653).epsilon(1.0e-9));
    }
 
    SECTION("Radians simple coordinates")
    {
-      CHECK(Vector3D(1.235,0.000,0.000).angleRad(23.678,0.000,0.000)==Catch::Approx(0.0).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angleRad(-18.90589543,23.94807212,31.77961845)==Catch::Approx(0.0).epsilon(1.0e-9));
-      CHECK(Vector3D(3.436,0,0).angleRad(0,-5.346,0)==Catch::Approx(1.570796327).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angleRad(21.25783696,19.24983078,-1.85961620)==Catch::Approx(1.570796327).epsilon(1.0e-9));
-      CHECK(Vector3D(0.000,2.567,0.000).angleRad(0.000,-14.346,0.000)==Catch::Approx(3.141592653).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angleRad(12.33284893,-15.62200303,-20.73074162)==Catch::Approx(3.141592653).epsilon(1.0e-9));
+      CHECK(Vector3D(1.235,0.000,0.000).angle(23.678,0.000,0.000)==Catch::Approx(0.0).epsilon(1.0e-9));
+      CHECK(Vector3D(-25.017,31.689,42.052).angle(-18.90589543,23.94807212,31.77961845)==Catch::Approx(0.0).epsilon(1.0e-9));
+      CHECK(Vector3D(3.436,0,0).angle(0,-5.346,0)==Catch::Approx(1.570796327).epsilon(1.0e-9));
+      CHECK(Vector3D(-25.017,31.689,42.052).angle(21.25783696,19.24983078,-1.85961620)==Catch::Approx(1.570796327).epsilon(1.0e-9));
+      CHECK(Vector3D(0.000,2.567,0.000).angle(0.000,-14.346,0.000)==Catch::Approx(3.141592653).epsilon(1.0e-9));
+      CHECK(Vector3D(-25.017,31.689,42.052).angle(12.33284893,-15.62200303,-20.73074162)==Catch::Approx(3.141592653).epsilon(1.0e-9));
    }
 
    SECTION("Radians real instance")
    {
-      CHECK(Vector3D(39.216,-14.235,42.094).angleRad(Vector3D(46.412,47.500,-13.349))==Catch::Approx(1.42530773).epsilon(1.0e-9));
-      CHECK(Vector3D(-8.418,37.961,-20.712).angleRad(Vector3D(-25.017,31.689,42.052))==Catch::Approx(1.3579370325).epsilon(1.0e-9));
-      CHECK(Vector3D(-46.846,-38.050,15.318).angleRad(Vector3D(33.166,22.818,14.322))==Catch::Approx(2.546064985).epsilon(1.0e-9));
+      CHECK(Vector3D(39.216,-14.235,42.094).angle(Vector3D(46.412,47.500,-13.349))==Catch::Approx(1.42530773).epsilon(1.0e-9));
+      CHECK(Vector3D(-8.418,37.961,-20.712).angle(Vector3D(-25.017,31.689,42.052),Vector3D::Radians)==Catch::Approx(1.3579370325).epsilon(1.0e-9));
+      CHECK(Vector3D(-46.846,-38.050,15.318).angle(Vector3D(33.166,22.818,14.322))==Catch::Approx(2.546064985).epsilon(1.0e-9));
    }
 
    SECTION("Radians real coordinates")
    {
-      CHECK(Vector3D(39.216,-14.235,42.094).angleRad(46.412,47.500,-13.349)==Catch::Approx(1.42530773).epsilon(1.0e-9));
-      CHECK(Vector3D(-8.418,37.961,-20.712).angleRad(-25.017,31.689,42.052)==Catch::Approx(1.3579370325).epsilon(1.0e-9));
-      CHECK(Vector3D(-46.846,-38.050,15.318).angleRad(33.166,22.818,14.322)==Catch::Approx(2.546064985).epsilon(1.0e-9));
+      CHECK(Vector3D(39.216,-14.235,42.094).angle(46.412,47.500,-13.349)==Catch::Approx(1.42530773).epsilon(1.0e-9));
+      CHECK(Vector3D(-8.418,37.961,-20.712).angle(-25.017,31.689,42.052,Vector3D::Radians)==Catch::Approx(1.3579370325).epsilon(1.0e-9));
+      CHECK(Vector3D(-46.846,-38.050,15.318).angle(33.166,22.818,14.322)==Catch::Approx(2.546064985).epsilon(1.0e-9));
    }
 
    SECTION("Degrees simple instance")
    {
-      CHECK(Vector3D(1.235,0.000,0.000).angleDeg(Vector3D(23.678,0.000,0.000))==Catch::Approx(0.0).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angleDeg(Vector3D(-18.90589543,23.94807212,31.77961845))==Catch::Approx(0.0).epsilon(1.0e-9));
-      CHECK(Vector3D(3.436,0,0).angleDeg(Vector3D(0,-5.346,0))==Catch::Approx(90.0).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angleDeg(Vector3D(21.25783696,19.24983078,-1.85961620))==Catch::Approx(90.0).epsilon(1.0e-9));
-      CHECK(Vector3D(0.000,2.567,0.000).angleDeg(Vector3D(0.000,-14.346,0.000))==Catch::Approx(180.0).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angleDeg(Vector3D(12.33284893,-15.62200303,-20.73074162))==Catch::Approx(180.0).epsilon(1.0e-9));
+      CHECK(Vector3D(1.235,0.000,0.000).angle(Vector3D(23.678,0.000,0.000),Vector3D::Degrees)==Catch::Approx(0.0).epsilon(1.0e-9));
+      CHECK(Vector3D(-25.017,31.689,42.052).angle(Vector3D(-18.90589543,23.94807212,31.77961845),Vector3D::Degrees)==Catch::Approx(0.0).epsilon(1.0e-9));
+      CHECK(Vector3D(3.436,0,0).angle(Vector3D(0,-5.346,0),Vector3D::Degrees)==Catch::Approx(90.0).epsilon(1.0e-9));
+      CHECK(Vector3D(-25.017,31.689,42.052).angle(Vector3D(21.25783696,19.24983078,-1.85961620),Vector3D::Degrees)==Catch::Approx(90.0).epsilon(1.0e-9));
+      CHECK(Vector3D(0.000,2.567,0.000).angle(Vector3D(0.000,-14.346,0.000),Vector3D::Degrees)==Catch::Approx(180.0).epsilon(1.0e-9));
+      CHECK(Vector3D(-25.017,31.689,42.052).angle(Vector3D(12.33284893,-15.62200303,-20.73074162),Vector3D::Degrees)==Catch::Approx(180.0).epsilon(1.0e-9));
    }
 
    SECTION("Degrees simple coordinates")
    {
-      CHECK(Vector3D(1.235,0.000,0.000).angleDeg(23.678,0.000,0.000)==Catch::Approx(0.0).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angleDeg(-18.90589543,23.94807212,31.77961845)==Catch::Approx(0.0).epsilon(1.0e-9));
-      CHECK(Vector3D(3.436,0,0).angleDeg(0,-5.346,0)==Catch::Approx(90.0).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angleDeg(21.25783696,19.24983078,-1.85961620)==Catch::Approx(90.0).epsilon(1.0e-9));
-      CHECK(Vector3D(0.000,2.567,0.000).angleDeg(0.000,-14.346,0.000)==Catch::Approx(180.0).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angleDeg(12.33284893,-15.62200303,-20.73074162)==Catch::Approx(180.0).epsilon(1.0e-9));
+      CHECK(Vector3D(1.235,0.000,0.000).angle(23.678,0.000,0.000,Vector3D::Degrees)==Catch::Approx(0.0).epsilon(1.0e-9));
+      CHECK(Vector3D(-25.017,31.689,42.052).angle(-18.90589543,23.94807212,31.77961845,Vector3D::Degrees)==Catch::Approx(0.0).epsilon(1.0e-9));
+      CHECK(Vector3D(3.436,0,0).angle(0,-5.346,0,Vector3D::Degrees)==Catch::Approx(90.0).epsilon(1.0e-9));
+      CHECK(Vector3D(-25.017,31.689,42.052).angle(21.25783696,19.24983078,-1.85961620,Vector3D::Degrees)==Catch::Approx(90.0).epsilon(1.0e-9));
+      CHECK(Vector3D(0.000,2.567,0.000).angle(0.000,-14.346,0.000,Vector3D::Degrees)==Catch::Approx(180.0).epsilon(1.0e-9));
+      CHECK(Vector3D(-25.017,31.689,42.052).angle(12.33284893,-15.62200303,-20.73074162,Vector3D::Degrees)==Catch::Approx(180.0).epsilon(1.0e-9));
    }
 
    SECTION("Degrees real instance")
    {
-      CHECK(Vector3D(39.216,-14.235,42.094).angleDeg(Vector3D(46.412,47.500,-13.349))==Catch::Approx(81.66411745).epsilon(1.0e-9));
-      CHECK(Vector3D(-8.418,37.961,-20.712).angleDeg(Vector3D(-25.017,31.689,42.052))==Catch::Approx(77.80406081).epsilon(1.0e-9));
-      CHECK(Vector3D(-46.846,-38.050,15.318).angleDeg(Vector3D(33.166,22.818,14.322))==Catch::Approx(145.87877803).epsilon(1.0e-9));
+      CHECK(Vector3D(39.216,-14.235,42.094).angle(Vector3D(46.412,47.500,-13.349),Vector3D::Degrees)==Catch::Approx(81.66411745).epsilon(1.0e-9));
+      CHECK(Vector3D(-8.418,37.961,-20.712).angle(Vector3D(-25.017,31.689,42.052),Vector3D::Degrees)==Catch::Approx(77.80406081).epsilon(1.0e-9));
+      CHECK(Vector3D(-46.846,-38.050,15.318).angle(Vector3D(33.166,22.818,14.322),Vector3D::Degrees)==Catch::Approx(145.87877803).epsilon(1.0e-9));
    }
 
    SECTION("Degrees real coordinates")
    {
-      CHECK(Vector3D(39.216,-14.235,42.094).angleDeg(46.412,47.500,-13.349)==Catch::Approx(81.66411745).epsilon(1.0e-9));
-      CHECK(Vector3D(-8.418,37.961,-20.712).angleDeg(-25.017,31.689,42.052)==Catch::Approx(77.80406081).epsilon(1.0e-9));
-      CHECK(Vector3D(-46.846,-38.050,15.318).angleDeg(33.166,22.818,14.322)==Catch::Approx(145.87877803).epsilon(1.0e-9));
+      CHECK(Vector3D(39.216,-14.235,42.094).angle(46.412,47.500,-13.349,Vector3D::Degrees)==Catch::Approx(81.66411745).epsilon(1.0e-9));
+      CHECK(Vector3D(-8.418,37.961,-20.712).angle(-25.017,31.689,42.052,Vector3D::Degrees)==Catch::Approx(77.80406081).epsilon(1.0e-9));
+      CHECK(Vector3D(-46.846,-38.050,15.318).angle(33.166,22.818,14.322,Vector3D::Degrees)==Catch::Approx(145.87877803).epsilon(1.0e-9));
    }
 }

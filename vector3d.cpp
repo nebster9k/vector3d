@@ -163,36 +163,20 @@ double Vector3D::distance(double x, double y, double z) const
    return sqrt(pow(x-pX,2.0)+pow(y-pY,2.0)+pow(z-pZ,2.0));
 }
 
-double Vector3D::angleRad(const Vector3D &vector) const
+double Vector3D::angle(const Vector3D &vector, Vector3D::AngularUnits units) const
 {
-   if((Vector3D::isNotZero(vector.pX) || Vector3D::isNotZero(vector.pY) || Vector3D::isNotZero(vector.pZ)) && (Vector3D::isNotZero(pX) || Vector3D::isNotZero(pY) || Vector3D::isNotZero(pZ)))
-   {
-      double arccos=(vector.pX*pX+vector.pY*pY+vector.pZ*pZ)/(sqrt(pow(vector.pX,2.0)+pow(vector.pY,2.0)+pow(vector.pZ,2.0))*sqrt(pow(pX,2.0)+pow(pY,2.0)+pow(pZ,2.0)));
-      if(arccos>1.0) arccos=1.0;
-      if(arccos<-1.0) arccos=-1.0;
-      return acos(arccos);
-   } else return 0.0;
+   return angle(vector.pX,vector.pY,vector.pZ,units);
 }
 
-double Vector3D::angleRad(double x, double y, double z) const
+double Vector3D::angle(double x, double y, double z, Vector3D::AngularUnits units) const
 {
    if((Vector3D::isNotZero(x) || Vector3D::isNotZero(y) || Vector3D::isNotZero(z)) && (Vector3D::isNotZero(pX) || Vector3D::isNotZero(pY) || Vector3D::isNotZero(pZ)))
    {
       double arccos=(x*pX+y*pY+z*pZ)/(sqrt(pow(x,2.0)+pow(y,2.0)+pow(z,2.0))*sqrt(pow(pX,2.0)+pow(pY,2.0)+pow(pZ,2.0)));
       if(arccos>1.0) arccos=1.0;
       if(arccos<-1.0) arccos=-1.0;
-      return acos(arccos);
+      if(units==Vector3D::AngularUnits::Degrees) return acos(arccos)*M_RAD2DEG; else return acos(arccos);
    } else return 0.0;
-}
-
-double Vector3D::angleDeg(const Vector3D &vector) const
-{
-   return angleRad(vector)*M_RAD2DEG;
-}
-
-double Vector3D::angleDeg(double x, double y, double z) const
-{
-   return angleRad(x,y,z)*M_RAD2DEG;
 }
 
 bool Vector3D::isZero() const
