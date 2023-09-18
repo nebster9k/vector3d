@@ -29,7 +29,13 @@ Vector3D &Vector3D::operator*=(double factor)
 
 Vector3D &Vector3D::operator/=(double factor)
 {
-   if(Vector3D::isZero(factor)) return *this;
+   if(Vector3D::isZero(factor))
+   {
+      pX=INFINITY;
+      pY=INFINITY;
+      pZ=INFINITY;
+      return *this;
+   }
    pX/=factor; pY/=factor; pZ/=factor;
    return *this;
 }
@@ -58,7 +64,7 @@ const Vector3D operator*(const Vector3D &vector, double factor)
 
 const Vector3D operator/(const Vector3D &vector, double factor)
 {
-   if(Vector3D::isZero(factor)) return vector;
+   if(Vector3D::isZero(factor)) return Vector3D(INFINITY,INFINITY,INFINITY);
    return Vector3D(vector.pX/factor,vector.pY/factor,vector.pZ/factor);
 }
 
