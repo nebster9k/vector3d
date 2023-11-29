@@ -29,14 +29,10 @@ Vector3D &Vector3D::operator*=(double factor)
 
 Vector3D &Vector3D::operator/=(double factor)
 {
-   if(Vector3D::isZero(factor))
+   if(Vector3D::isNotZero(factor))
    {
-      pX=INFINITY;
-      pY=INFINITY;
-      pZ=INFINITY;
-      return *this;
-   }
-   pX/=factor; pY/=factor; pZ/=factor;
+      pX/=factor; pY/=factor; pZ/=factor;
+   } else pZ=pY=pX=std::numeric_limits<double>::quiet_NaN();
    return *this;
 }
 
@@ -64,7 +60,7 @@ const Vector3D operator*(const Vector3D &vector, double factor)
 
 const Vector3D operator/(const Vector3D &vector, double factor)
 {
-   if(Vector3D::isZero(factor)) return Vector3D(INFINITY,INFINITY,INFINITY);
+   if(Vector3D::isZero(factor)) return Vector3D(std::numeric_limits<double>::quiet_NaN(),std::numeric_limits<double>::quiet_NaN(),std::numeric_limits<double>::quiet_NaN());
    return Vector3D(vector.pX/factor,vector.pY/factor,vector.pZ/factor);
 }
 
@@ -149,7 +145,7 @@ bool Vector3D::setLength(double length)
       if(Vector3D::isZero(pX) && Vector3D::isZero(pY) && Vector3D::isZero(pZ)) return false;
       double factor=sqrt(pow(pX,2.0)+pow(pY,2.0)+pow(pZ,2.0))/length;
       pX=pX/factor; pY=pY/factor; pZ=pZ/factor;
-   } else pX=pY=pZ=0.0;
+   } else pZ=pY=pX=0.0;
    return true;
 }
 
@@ -182,4 +178,9 @@ double Vector3D::angle(double x, double y, double z, Vector3D::AngularUnits unit
 bool Vector3D::isZero() const
 {
    if(Vector3D::isNotZero(pX) || Vector3D::isNotZero(pY) || Vector3D::isNotZero(pZ)) return false; else return true;
+}
+
+bool Vector3D::isNaN() const
+{
+   if(std::isnan(pX) || std::isnan(pY) || std::isnan(pZ)) return true; else return false;
 }

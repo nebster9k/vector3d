@@ -61,6 +61,7 @@ class Vector3D
       double angle(double x, double y, double z, Vector3D::AngularUnits units=Vector3D::AngularUnits::Radians) const;
 
       bool isZero() const;
+      bool isNaN() const;
 
    private:
       double pX;
@@ -74,7 +75,7 @@ class Vector3D
       static inline bool isNotZero(double value);
 
       static constexpr double pEpsilon=std::numeric_limits<double>::epsilon();
-      static constexpr double pEpsilonNeg=std::numeric_limits<double>::epsilon()*-1;
+      static constexpr double pEpsilonNeg=std::numeric_limits<double>::epsilon()*-1.0;
 };
 
 bool inline Vector3D::isEqual(double value1, double value2)

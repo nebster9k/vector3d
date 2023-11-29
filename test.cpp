@@ -149,25 +149,29 @@ TEST_CASE("Overloads check")
 
       vector2=vector1;
       vector2/=0.0;
-      CHECK(vector2.x()==INFINITY);
-      CHECK(vector2.y()==INFINITY);
-      CHECK(vector2.z()==INFINITY);
+      CHECK(std::isnan(vector2.x()));
+      CHECK(std::isnan(vector2.y()));
+      CHECK(std::isnan(vector2.z()));
+      CHECK(vector2.isNaN());
 
       vector2=vector1/0.0;
-      CHECK(vector2.x()==INFINITY);
-      CHECK(vector2.y()==INFINITY);
-      CHECK(vector2.z()==INFINITY);
+      CHECK(std::isnan(vector2.x()));
+      CHECK(std::isnan(vector2.y()));
+      CHECK(std::isnan(vector2.z()));
+      CHECK(vector2.isNaN());
 
-      vector2.set(INFINITY,INFINITY,INFINITY);
+      vector2.set(std::numeric_limits<double>::infinity(),std::numeric_limits<double>::infinity(),std::numeric_limits<double>::infinity());
       vector2*=0.5;
-      CHECK(vector2.x()==INFINITY);
-      CHECK(vector2.y()==INFINITY);
-      CHECK(vector2.z()==INFINITY);
+      CHECK(std::isinf(vector2.x()));
+      CHECK(std::isinf(vector2.y()));
+      CHECK(std::isinf(vector2.z()));
+      CHECK_FALSE(vector2.isNaN());
 
       vector2*=0.0;
-      CHECK(isnanf(vector2.x()));
-      CHECK(isnanf(vector2.y()));
-      CHECK(isnanf(vector2.z()));
+      CHECK(std::isnan(vector2.x()));
+      CHECK(std::isnan(vector2.y()));
+      CHECK(std::isnan(vector2.z()));
+      CHECK(vector2.isNaN());
    }
 
    SECTION("Stream out")
