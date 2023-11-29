@@ -60,10 +60,14 @@ class Vector3D
       double angle(const Vector3D &vector, Vector3D::AngularUnits units=Vector3D::AngularUnits::Radians) const;
       double angle(double x, double y, double z, Vector3D::AngularUnits units=Vector3D::AngularUnits::Radians) const;
 
+      void rotate(const Vector3D &vector, double angle, Vector3D::AngularUnits units=Vector3D::AngularUnits::Radians);
+      void rotate(double x, double y, double z, double angle, Vector3D::AngularUnits units=Vector3D::AngularUnits::Radians);
+
       bool isZero() const;
       bool isNaN() const;
 
    private:
+      struct Quaternion { double x,y,z,w; };
       double pX;
       double pY;
       double pZ;

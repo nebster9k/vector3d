@@ -175,6 +175,26 @@ double Vector3D::angle(double x, double y, double z, Vector3D::AngularUnits unit
    } else return 0.0;
 }
 
+void Vector3D::rotate(const Vector3D& vector, double angle, AngularUnits units)
+{
+   rotate(vector.pX,vector.pY,vector.pZ,angle,units);
+}
+
+void Vector3D::rotate(double x, double y, double z, double angle, AngularUnits units)
+{
+   if(units==Vector3D::AngularUnits::Degrees) angle*=M_DEG2RAD;
+
+   if((Vector3D::isNotZero(x) || Vector3D::isNotZero(y) || Vector3D::isNotZero(z)) && (Vector3D::isNotZero(pX) || Vector3D::isNotZero(pY) || Vector3D::isNotZero(pZ)) && Vector3D::isNotZero(angle))
+   {
+      double axisLength=sqrt(pow(x,2.0)+pow(y,2.0)+pow(z,2.0)); x/=axisLength; y/=axisLength; z/=axisLength;
+      double halfAngle=angle/-2.0,halfAngleSin=sin(halfAngle);
+      Quaternion t,r={.x=x*halfAngleSin,.y=y*halfAngleSin,.z=z*halfAngleSin,.w=cos(halfAngle)};
+      t.w=0.0-r.x*pX-r.y*pY-r.z*pZ; t.x=r.w*pX+r.y*pZ-r.z*pY; t.y=r.w*pY-r.x*pZ+r.z*pX; t.z=r.w*pZ+r.x*pY-r.y*pX;
+      r.x*=-1.0; r.y*=-1.0; r.z*=-1.0;
+      pX=t.w*r.x+t.x*r.w+t.y*r.z-t.z*r.y; pY=t.w*r.y-t.x*r.z+t.y*r.w+t.z*r.x; pZ=t.w*r.z+t.x*r.y-t.y*r.x+t.z*r.w;
+   }
+}
+
 bool Vector3D::isZero() const
 {
    if(Vector3D::isNotZero(pX) || Vector3D::isNotZero(pY) || Vector3D::isNotZero(pZ)) return false; else return true;

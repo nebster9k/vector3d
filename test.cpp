@@ -302,3 +302,196 @@ TEST_CASE("Angle methods")
       CHECK_THAT(Vector3D(-46.846,-38.050,15.318).angle(33.166,22.818,14.322,Vector3D::Degrees),Catch::Matchers::WithinAbs(145.87877803,delta));
    }
 }
+
+TEST_CASE("Simple rotate")
+{
+   Vector3D vector=Vector3D(5.0,0.0,0.0);
+   Vector3D axis=Vector3D(0.0,0.0,-1.0);
+   double angle=90.0;
+   Vector3D check=Vector3D(0.0,5.0,0.0);
+   double delta=1.0e-12;
+
+   vector.rotate(axis,angle,Vector3D::Degrees);
+   CHECK_THAT(vector.x(),Catch::Matchers::WithinAbs(check.x(),delta));
+   CHECK_THAT(vector.y(),Catch::Matchers::WithinAbs(check.y(),delta));
+   CHECK_THAT(vector.z(),Catch::Matchers::WithinAbs(check.z(),delta));
+}
+
+TEST_CASE("Rotate methods")
+{
+   std::vector<Vector3D> vector,axis,check; std::vector<double> angle;
+   double deltaRad=1.0e-6;
+   double deltaDeg=1.0e-8;
+
+   SECTION("Radians simple instance")
+   {
+      vector.clear(); axis.clear(); check.clear(); angle.clear();
+      vector.push_back(Vector3D(-23.384,-27.427,-23.769)); axis.push_back(Vector3D(17.217,11.341,31.965)); angle.push_back(0.0); check.push_back(Vector3D(-23.384,-27.427,-23.769));
+      vector.push_back(Vector3D(-2.549,17.927,0.467)); axis.push_back(Vector3D(20.130,49.176,-21.931)); angle.push_back(1.57079633); check.push_back(Vector3D(-2.24346891,11.39441477,-13.90061072));
+      vector.push_back(Vector3D(9.955,-34.501,4.158)); axis.push_back(Vector3D(39.861,-35.181,-49.683)); angle.push_back(-1.57079633); check.push_back(Vector3D(-14.99708164,-18.40323112,-27.26020207));
+      vector.push_back(Vector3D(-10.927,-14.151,24.814)); axis.push_back(Vector3D(36.016,21.735,-8.425)); angle.push_back(3.14159265); check.push_back(Vector3D(-24.69392769,-7.34558105,-16.48141682));
+      vector.push_back(Vector3D(-48.551,-6.099,42.352)); axis.push_back(Vector3D(-6.250,-35.281,36.325)); angle.push_back(-3.14159265); check.push_back(Vector3D(38.67389465,-49.6568646,15.05373628));
+      vector.push_back(Vector3D(19.859,-15.055,46.167)); axis.push_back(Vector3D(-40.104,1.501,1.380)); angle.push_back(6.28318531); check.push_back(Vector3D(19.859,-15.055,46.167));
+      vector.push_back(Vector3D(-27.703,29.240,49.907)); axis.push_back(Vector3D(-22.222,29.404,-2.766)); angle.push_back(-6.28318531); check.push_back(Vector3D(-27.703,29.240,49.907));
+      REQUIRE(((vector.size()==axis.size()) && (axis.size()==check.size()) && (check.size()==angle.size())));
+      std::vector<Vector3D> vector2=vector;
+      for(int i=0;i<vector.size();i++)
+      {
+         vector[i].rotate(axis[i],angle[i]);
+         CHECK_THAT(vector[i].x(),Catch::Matchers::WithinAbs(check[i].x(),deltaRad));
+         CHECK_THAT(vector[i].y(),Catch::Matchers::WithinAbs(check[i].y(),deltaRad));
+         CHECK_THAT(vector[i].z(),Catch::Matchers::WithinAbs(check[i].z(),deltaRad));
+
+         vector2[i].rotate(axis[i],angle[i],Vector3D::Radians);
+         CHECK_THAT(vector2[i].x(),Catch::Matchers::WithinAbs(check[i].x(),deltaRad));
+         CHECK_THAT(vector2[i].y(),Catch::Matchers::WithinAbs(check[i].y(),deltaRad));
+         CHECK_THAT(vector2[i].z(),Catch::Matchers::WithinAbs(check[i].z(),deltaRad));
+      }
+   }
+
+   SECTION("Radians simple coordinates")
+   {
+      vector.clear(); axis.clear(); check.clear(); angle.clear();
+      vector.push_back(Vector3D(-23.384,-27.427,-23.769)); axis.push_back(Vector3D(17.217,11.341,31.965)); angle.push_back(0.0); check.push_back(Vector3D(-23.384,-27.427,-23.769));
+      vector.push_back(Vector3D(-2.549,17.927,0.467)); axis.push_back(Vector3D(20.130,49.176,-21.931)); angle.push_back(1.57079633); check.push_back(Vector3D(-2.24346891,11.39441477,-13.90061072));
+      vector.push_back(Vector3D(9.955,-34.501,4.158)); axis.push_back(Vector3D(39.861,-35.181,-49.683)); angle.push_back(-1.57079633); check.push_back(Vector3D(-14.99708164,-18.40323112,-27.26020207));
+      vector.push_back(Vector3D(-10.927,-14.151,24.814)); axis.push_back(Vector3D(36.016,21.735,-8.425)); angle.push_back(3.14159265); check.push_back(Vector3D(-24.69392769,-7.34558105,-16.48141682));
+      vector.push_back(Vector3D(-48.551,-6.099,42.352)); axis.push_back(Vector3D(-6.250,-35.281,36.325)); angle.push_back(-3.14159265); check.push_back(Vector3D(38.67389465,-49.6568646,15.05373628));
+      vector.push_back(Vector3D(19.859,-15.055,46.167)); axis.push_back(Vector3D(-40.104,1.501,1.380)); angle.push_back(6.28318531); check.push_back(Vector3D(19.859,-15.055,46.167));
+      vector.push_back(Vector3D(-27.703,29.240,49.907)); axis.push_back(Vector3D(-22.222,29.404,-2.766)); angle.push_back(-6.28318531); check.push_back(Vector3D(-27.703,29.240,49.907));
+      REQUIRE(((vector.size()==axis.size()) && (axis.size()==check.size()) && (check.size()==angle.size())));
+      std::vector<Vector3D> vector2=vector;
+      for(int i=0;i<vector.size();i++)
+      {
+         vector[i].rotate(axis[i].x(),axis[i].y(),axis[i].z(),angle[i]);
+         CHECK_THAT(vector[i].x(),Catch::Matchers::WithinAbs(check[i].x(),deltaRad));
+         CHECK_THAT(vector[i].y(),Catch::Matchers::WithinAbs(check[i].y(),deltaRad));
+         CHECK_THAT(vector[i].z(),Catch::Matchers::WithinAbs(check[i].z(),deltaRad));
+
+         vector2[i].rotate(axis[i].x(),axis[i].y(),axis[i].z(),angle[i],Vector3D::Radians);
+         CHECK_THAT(vector2[i].x(),Catch::Matchers::WithinAbs(check[i].x(),deltaRad));
+         CHECK_THAT(vector2[i].y(),Catch::Matchers::WithinAbs(check[i].y(),deltaRad));
+         CHECK_THAT(vector2[i].z(),Catch::Matchers::WithinAbs(check[i].z(),deltaRad));
+      }
+   }
+
+   SECTION("Radians real instance")
+   {
+      vector.clear(); axis.clear(); check.clear(); angle.clear();
+      vector.push_back(Vector3D(43.375,4.320,22.388)); axis.push_back(Vector3D(2.023,-30.325,-37.247)); angle.push_back(3.33715680); check.push_back(Vector3D(-46.16307447,11.84879786,11.39526717));
+      vector.push_back(Vector3D(-11.872,48.280,-35.682)); axis.push_back(Vector3D(-37.360,-30.796,-30.118)); angle.push_back(-3.87112283); check.push_back(Vector3D(-21.62114171,-25.10782215,51.45125271));
+      vector.push_back(Vector3D(-3.108,25.264,37.777)); axis.push_back(Vector3D(8.748,40.266,39.068)); angle.push_back(1.15718820); check.push_back(Vector3D(-5.86075978,35.86042393,27.47203267));
+      vector.push_back(Vector3D(11.707,-48.161,22.777)); axis.push_back(Vector3D(48.561,23.648,36.697)); angle.push_back(9.60243503); check.push_back(Vector3D(0.71638585,48.49324995,-24.96435458));
+      REQUIRE(((vector.size()==axis.size()) && (axis.size()==check.size()) && (check.size()==angle.size())));
+      std::vector<Vector3D> vector2=vector;
+      for(int i=0;i<vector.size();i++)
+      {
+         vector[i].rotate(axis[i],angle[i]);
+         CHECK_THAT(vector[i].x(),Catch::Matchers::WithinAbs(check[i].x(),deltaRad));
+         CHECK_THAT(vector[i].y(),Catch::Matchers::WithinAbs(check[i].y(),deltaRad));
+         CHECK_THAT(vector[i].z(),Catch::Matchers::WithinAbs(check[i].z(),deltaRad));
+
+         vector2[i].rotate(axis[i],angle[i],Vector3D::Radians);
+         CHECK_THAT(vector2[i].x(),Catch::Matchers::WithinAbs(check[i].x(),deltaRad));
+         CHECK_THAT(vector2[i].y(),Catch::Matchers::WithinAbs(check[i].y(),deltaRad));
+         CHECK_THAT(vector2[i].z(),Catch::Matchers::WithinAbs(check[i].z(),deltaRad));
+      }
+   }
+
+   SECTION("Radians real coordinates")
+   {
+      vector.clear(); axis.clear(); check.clear(); angle.clear();
+      vector.push_back(Vector3D(43.375,4.320,22.388)); axis.push_back(Vector3D(2.023,-30.325,-37.247)); angle.push_back(3.33715680); check.push_back(Vector3D(-46.16307447,11.84879786,11.39526717));
+      vector.push_back(Vector3D(-11.872,48.280,-35.682)); axis.push_back(Vector3D(-37.360,-30.796,-30.118)); angle.push_back(-3.87112283); check.push_back(Vector3D(-21.62114171,-25.10782215,51.45125271));
+      vector.push_back(Vector3D(-3.108,25.264,37.777)); axis.push_back(Vector3D(8.748,40.266,39.068)); angle.push_back(1.15718820); check.push_back(Vector3D(-5.86075978,35.86042393,27.47203267));
+      vector.push_back(Vector3D(11.707,-48.161,22.777)); axis.push_back(Vector3D(48.561,23.648,36.697)); angle.push_back(9.60243503); check.push_back(Vector3D(0.71638585,48.49324995,-24.96435458));
+      REQUIRE(((vector.size()==axis.size()) && (axis.size()==check.size()) && (check.size()==angle.size())));
+      std::vector<Vector3D> vector2=vector;
+      for(int i=0;i<vector.size();i++)
+      {
+         vector[i].rotate(axis[i].x(),axis[i].y(),axis[i].z(),angle[i]);
+         CHECK_THAT(vector[i].x(),Catch::Matchers::WithinAbs(check[i].x(),deltaRad));
+         CHECK_THAT(vector[i].y(),Catch::Matchers::WithinAbs(check[i].y(),deltaRad));
+         CHECK_THAT(vector[i].z(),Catch::Matchers::WithinAbs(check[i].z(),deltaRad));
+
+         vector2[i].rotate(axis[i].x(),axis[i].y(),axis[i].z(),angle[i],Vector3D::Radians);
+         CHECK_THAT(vector2[i].x(),Catch::Matchers::WithinAbs(check[i].x(),deltaRad));
+         CHECK_THAT(vector2[i].y(),Catch::Matchers::WithinAbs(check[i].y(),deltaRad));
+         CHECK_THAT(vector2[i].z(),Catch::Matchers::WithinAbs(check[i].z(),deltaRad));
+      }
+   }
+
+   SECTION("Degrees simple instance")
+   {
+      vector.clear(); axis.clear(); check.clear(); angle.clear();
+      vector.push_back(Vector3D(-23.384,-27.427,-23.769)); axis.push_back(Vector3D(17.217,11.341,31.965)); angle.push_back(0.0); check.push_back(Vector3D(-23.384,-27.427,-23.769));
+      vector.push_back(Vector3D(-2.549,17.927,0.467)); axis.push_back(Vector3D(20.130,49.176,-21.931)); angle.push_back(90.0); check.push_back(Vector3D(-2.24346891,11.39441477,-13.90061072));
+      vector.push_back(Vector3D(9.955,-34.501,4.158)); axis.push_back(Vector3D(39.861,-35.181,-49.683)); angle.push_back(-90.0); check.push_back(Vector3D(-14.99708164,-18.40323112,-27.26020207));
+      vector.push_back(Vector3D(-10.927,-14.151,24.814)); axis.push_back(Vector3D(36.016,21.735,-8.425)); angle.push_back(180.0); check.push_back(Vector3D(-24.69392769,-7.34558105,-16.48141682));
+      vector.push_back(Vector3D(-48.551,-6.099,42.352)); axis.push_back(Vector3D(-6.250,-35.281,36.325)); angle.push_back(-180.0); check.push_back(Vector3D(38.67389465,-49.6568646,15.05373628));
+      vector.push_back(Vector3D(19.859,-15.055,46.167)); axis.push_back(Vector3D(-40.104,1.501,1.380)); angle.push_back(360.0); check.push_back(Vector3D(19.859,-15.055,46.167));
+      vector.push_back(Vector3D(-27.703,29.240,49.907)); axis.push_back(Vector3D(-22.222,29.404,-2.766)); angle.push_back(-360.0); check.push_back(Vector3D(-27.703,29.240,49.907));
+      REQUIRE(((vector.size()==axis.size()) && (axis.size()==check.size()) && (check.size()==angle.size())));
+      for(int i=0;i<vector.size();i++)
+      {
+         vector[i].rotate(axis[i],angle[i],Vector3D::Degrees);
+         CHECK_THAT(vector[i].x(),Catch::Matchers::WithinAbs(check[i].x(),deltaDeg));
+         CHECK_THAT(vector[i].y(),Catch::Matchers::WithinAbs(check[i].y(),deltaDeg));
+         CHECK_THAT(vector[i].z(),Catch::Matchers::WithinAbs(check[i].z(),deltaDeg));
+      }
+   }
+
+   SECTION("Degrees simple coordinates")
+   {
+      vector.clear(); axis.clear(); check.clear(); angle.clear();
+      vector.push_back(Vector3D(-23.384,-27.427,-23.769)); axis.push_back(Vector3D(17.217,11.341,31.965)); angle.push_back(0.0); check.push_back(Vector3D(-23.384,-27.427,-23.769));
+      vector.push_back(Vector3D(-2.549,17.927,0.467)); axis.push_back(Vector3D(20.130,49.176,-21.931)); angle.push_back(90.0); check.push_back(Vector3D(-2.24346891,11.39441477,-13.90061072));
+      vector.push_back(Vector3D(9.955,-34.501,4.158)); axis.push_back(Vector3D(39.861,-35.181,-49.683)); angle.push_back(-90.0); check.push_back(Vector3D(-14.99708164,-18.40323112,-27.26020207));
+      vector.push_back(Vector3D(-10.927,-14.151,24.814)); axis.push_back(Vector3D(36.016,21.735,-8.425)); angle.push_back(180.0); check.push_back(Vector3D(-24.69392769,-7.34558105,-16.48141682));
+      vector.push_back(Vector3D(-48.551,-6.099,42.352)); axis.push_back(Vector3D(-6.250,-35.281,36.325)); angle.push_back(-180.0); check.push_back(Vector3D(38.67389465,-49.6568646,15.05373628));
+      vector.push_back(Vector3D(19.859,-15.055,46.167)); axis.push_back(Vector3D(-40.104,1.501,1.380)); angle.push_back(360.0); check.push_back(Vector3D(19.859,-15.055,46.167));
+      vector.push_back(Vector3D(-27.703,29.240,49.907)); axis.push_back(Vector3D(-22.222,29.404,-2.766)); angle.push_back(-360.0); check.push_back(Vector3D(-27.703,29.240,49.907));
+      REQUIRE(((vector.size()==axis.size()) && (axis.size()==check.size()) && (check.size()==angle.size())));
+      for(int i=0;i<vector.size();i++)
+      {
+         vector[i].rotate(axis[i].x(),axis[i].y(),axis[i].z(),angle[i],Vector3D::Degrees);
+         CHECK_THAT(vector[i].x(),Catch::Matchers::WithinAbs(check[i].x(),deltaDeg));
+         CHECK_THAT(vector[i].y(),Catch::Matchers::WithinAbs(check[i].y(),deltaDeg));
+         CHECK_THAT(vector[i].z(),Catch::Matchers::WithinAbs(check[i].z(),deltaDeg));
+      }
+   }
+
+   SECTION("Degrees real instance")
+   {
+      vector.clear(); axis.clear(); check.clear(); angle.clear();
+      vector.push_back(Vector3D(43.375,4.320,22.388)); axis.push_back(Vector3D(2.023,-30.325,-37.247)); angle.push_back(191.205); check.push_back(Vector3D(-46.16307447,11.84879786,11.39526717));
+      vector.push_back(Vector3D(-11.872,48.280,-35.682)); axis.push_back(Vector3D(-37.360,-30.796,-30.118)); angle.push_back(-221.799); check.push_back(Vector3D(-21.62114171,-25.10782215,51.45125271));
+      vector.push_back(Vector3D(-3.108,25.264,37.777)); axis.push_back(Vector3D(8.748,40.266,39.068)); angle.push_back(66.302); check.push_back(Vector3D(-5.86075978,35.86042393,27.47203267));
+      vector.push_back(Vector3D(11.707,-48.161,22.777)); axis.push_back(Vector3D(48.561,23.648,36.697)); angle.push_back(550.179); check.push_back(Vector3D(0.71638585,48.49324995,-24.96435458));
+      REQUIRE(((vector.size()==axis.size()) && (axis.size()==check.size()) && (check.size()==angle.size())));
+      for(int i=0;i<vector.size();i++)
+      {
+         vector[i].rotate(axis[i],angle[i],Vector3D::Degrees);
+         CHECK_THAT(vector[i].x(),Catch::Matchers::WithinAbs(check[i].x(),deltaDeg));
+         CHECK_THAT(vector[i].y(),Catch::Matchers::WithinAbs(check[i].y(),deltaDeg));
+         CHECK_THAT(vector[i].z(),Catch::Matchers::WithinAbs(check[i].z(),deltaDeg));
+      }
+   }
+
+   SECTION("Degrees real coordinates")
+   {
+      vector.clear(); axis.clear(); check.clear(); angle.clear();
+      vector.push_back(Vector3D(43.375,4.320,22.388)); axis.push_back(Vector3D(2.023,-30.325,-37.247)); angle.push_back(191.205); check.push_back(Vector3D(-46.16307447,11.84879786,11.39526717));
+      vector.push_back(Vector3D(-11.872,48.280,-35.682)); axis.push_back(Vector3D(-37.360,-30.796,-30.118)); angle.push_back(-221.799); check.push_back(Vector3D(-21.62114171,-25.10782215,51.45125271));
+      vector.push_back(Vector3D(-3.108,25.264,37.777)); axis.push_back(Vector3D(8.748,40.266,39.068)); angle.push_back(66.302); check.push_back(Vector3D(-5.86075978,35.86042393,27.47203267));
+      vector.push_back(Vector3D(11.707,-48.161,22.777)); axis.push_back(Vector3D(48.561,23.648,36.697)); angle.push_back(550.179); check.push_back(Vector3D(0.71638585,48.49324995,-24.96435458));
+      REQUIRE(((vector.size()==axis.size()) && (axis.size()==check.size()) && (check.size()==angle.size())));
+      for(int i=0;i<vector.size();i++)
+      {
+         vector[i].rotate(axis[i].x(),axis[i].y(),axis[i].z(),angle[i],Vector3D::Degrees);
+         CHECK_THAT(vector[i].x(),Catch::Matchers::WithinAbs(check[i].x(),deltaDeg));
+         CHECK_THAT(vector[i].y(),Catch::Matchers::WithinAbs(check[i].y(),deltaDeg));
+         CHECK_THAT(vector[i].z(),Catch::Matchers::WithinAbs(check[i].z(),deltaDeg));
+      }
+   }
+}
