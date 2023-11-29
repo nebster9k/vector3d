@@ -187,108 +187,118 @@ TEST_CASE("Overloads check")
 
 TEST_CASE("Length methods")
 {
+   double delta=1.0e-12;
+
    SECTION("Length")
    {
-      CHECK(Vector3D(-4.503,38.875,-49.137).length()==Catch::Approx(62.8170948309455).epsilon(std::numeric_limits<double>::epsilon()*5.0));
-      CHECK(Vector3D(12.338,-25.627,14.162).length()==Catch::Approx(31.7731272776225).epsilon(std::numeric_limits<double>::epsilon()*5.0));
-      CHECK(Vector3D(-14.59,32.245,-24.394).length()==Catch::Approx(42.9845944612718).epsilon(std::numeric_limits<double>::epsilon()*5.0));
-      CHECK(Vector3D(10.563,41.495,-36.893).length()==Catch::Approx(56.5199561482491).epsilon(std::numeric_limits<double>::epsilon()*5.0));
+      CHECK_THAT(Vector3D(-4.503,38.875,-49.137).length(),Catch::Matchers::WithinAbs(62.8170948309455,delta));
+      CHECK_THAT(Vector3D(12.338,-25.627,14.162).length(),Catch::Matchers::WithinAbs(31.7731272776225,delta));
+      CHECK_THAT(Vector3D(-14.59,32.245,-24.394).length(),Catch::Matchers::WithinAbs(42.9845944612718,delta));
+      CHECK_THAT(Vector3D(10.563,41.495,-36.893).length(),Catch::Matchers::WithinAbs(56.5199561482491,delta));
 
-      CHECK(Vector3D(-12.18,27.234,21.652).length()==Catch::Approx(36.8626133094223).epsilon(std::numeric_limits<double>::epsilon()*5.0));
-      CHECK(Vector3D(12.18,-27.234,-21.652).length()==Catch::Approx(36.8626133094223).epsilon(std::numeric_limits<double>::epsilon()*5.0));
-      CHECK(Vector3D(-12.18,27.234,-21.652).length()==Catch::Approx(36.8626133094223).epsilon(std::numeric_limits<double>::epsilon()*5.0));
+      CHECK_THAT(Vector3D(-12.18,27.234,21.652).length(),Catch::Matchers::WithinAbs(36.8626133094223,delta));
+      CHECK_THAT(Vector3D(12.18,-27.234,-21.652).length(),Catch::Matchers::WithinAbs(36.8626133094223,delta));
+      CHECK_THAT(Vector3D(-12.18,27.234,-21.652).length(),Catch::Matchers::WithinAbs(36.8626133094223,delta));
    }
 
    SECTION("Set length")
    {
       Vector3D vector(31.374,-34.234,11.474);
-      CHECK(vector.length()==Catch::Approx(47.8324921784345).epsilon(std::numeric_limits<double>::epsilon()*5.0));
+      CHECK_THAT(vector.length(),Catch::Matchers::WithinAbs(47.8324921784345,delta));
 
       vector.setLength(42.0);
-      CHECK(vector.length()==Catch::Approx(42.0).epsilon(std::numeric_limits<double>::epsilon()*5.0));
+      CHECK_THAT(vector.length(),Catch::Matchers::WithinAbs(42.0,delta));
 
-      CHECK(vector.x()==Catch::Approx(27.548386880709).epsilon(std::numeric_limits<double>::epsilon()*7.0));
-      CHECK(vector.y()==Catch::Approx(-30.0596505537767).epsilon(std::numeric_limits<double>::epsilon()*7.0));
-      CHECK(vector.z()==Catch::Approx(10.074908875797).epsilon(std::numeric_limits<double>::epsilon()*7.0));
+      CHECK_THAT(vector.x(),Catch::Matchers::WithinAbs(27.548386880709,delta));
+      CHECK_THAT(vector.y(),Catch::Matchers::WithinAbs(-30.0596505537767,delta));
+      CHECK_THAT(vector.z(),Catch::Matchers::WithinAbs(10.074908875797,delta));
    }
 
    SECTION("Distance")
    {
-      CHECK((Vector3D(-19.031,-20.295,-35.946)-Vector3D(1.847,14.863,-20.885)).length()==Catch::Approx(43.5753321157739).epsilon(std::numeric_limits<double>::epsilon()*5.0));
-      CHECK((Vector3D(-32.201,30.777,-27.992)-Vector3D(-35.649,-33.285,46.633)).length()==Catch::Approx(98.4109707959433).epsilon(std::numeric_limits<double>::epsilon()*5.0));
-      CHECK((Vector3D(16.029,-8.105,-13.236)-Vector3D(-3.848,44.050,24.921)).length()==Catch::Approx(67.6106190106258).epsilon(std::numeric_limits<double>::epsilon()*5.0));
-      CHECK((Vector3D(-19.055,11.967,29.753)-Vector3D(4.383,-5.947,19.101)).length()==Catch::Approx(31.3642526453286).epsilon(std::numeric_limits<double>::epsilon()*5.0));
-      CHECK((Vector3D(-16.469,-31.463,-31.352)-Vector3D(34.494,-42.150,20.695)).length()==Catch::Approx(73.6228873856493).epsilon(std::numeric_limits<double>::epsilon()*5.0));
+      CHECK_THAT((Vector3D(-19.031,-20.295,-35.946)-Vector3D(1.847,14.863,-20.885)).length(),Catch::Matchers::WithinAbs(43.5753321157739,delta));
+      CHECK_THAT((Vector3D(-32.201,30.777,-27.992)-Vector3D(-35.649,-33.285,46.633)).length(),Catch::Matchers::WithinAbs(98.4109707959433,delta));
+      CHECK_THAT((Vector3D(16.029,-8.105,-13.236)-Vector3D(-3.848,44.050,24.921)).length(),Catch::Matchers::WithinAbs(67.6106190106258,delta));
+      CHECK_THAT((Vector3D(-19.055,11.967,29.753)-Vector3D(4.383,-5.947,19.101)).length(),Catch::Matchers::WithinAbs(31.3642526453286,delta));
+      CHECK_THAT((Vector3D(-16.469,-31.463,-31.352)-Vector3D(34.494,-42.150,20.695)).length(),Catch::Matchers::WithinAbs(73.6228873856493,delta));
    }
 }
 
 TEST_CASE("Angle methods")
 {
+   double delta=1.0e-8;
+
    SECTION("Radians simple instance")
    {
-      CHECK(Vector3D(1.235,0.000,0.000).angle(Vector3D(23.678,0.000,0.000))==Catch::Approx(0.0).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angle(Vector3D(-18.90589543,23.94807212,31.77961845))==Catch::Approx(0.0).epsilon(1.0e-9));
-      CHECK(Vector3D(3.436,0,0).angle(Vector3D(0,-5.346,0))==Catch::Approx(1.570796327).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angle(Vector3D(21.25783696,19.24983078,-1.85961620))==Catch::Approx(1.570796327).epsilon(1.0e-9));
-      CHECK(Vector3D(0.000,2.567,0.000).angle(Vector3D(0.000,-14.346,0.000))==Catch::Approx(3.141592653).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angle(Vector3D(12.33284893,-15.62200303,-20.73074162))==Catch::Approx(3.141592653).epsilon(1.0e-9));
+      CHECK_THAT(Vector3D(1.235,0.000,0.000).angle(Vector3D(23.678,0.000,0.000)),Catch::Matchers::WithinAbs(0.0,delta));
+      CHECK_THAT(Vector3D(-25.017,31.689,42.052).angle(Vector3D(-18.90589543,23.94807212,31.77961845)),Catch::Matchers::WithinAbs(0.0,delta));
+      CHECK_THAT(Vector3D(3.436,0,0).angle(Vector3D(0,-5.346,0)),Catch::Matchers::WithinAbs(1.570796327,delta));
+      CHECK_THAT(Vector3D(-25.017,31.689,42.052).angle(Vector3D(21.25783696,19.24983078,-1.85961620)),Catch::Matchers::WithinAbs(1.570796327,delta));
+      CHECK_THAT(Vector3D(0.000,2.567,0.000).angle(Vector3D(0.000,-14.346,0.000)),Catch::Matchers::WithinAbs(3.141592653,delta));
+      CHECK_THAT(Vector3D(-25.017,31.689,42.052).angle(Vector3D(12.33284893,-15.62200303,-20.73074162)),Catch::Matchers::WithinAbs(3.141592653,delta));
    }
 
    SECTION("Radians simple coordinates")
    {
-      CHECK(Vector3D(1.235,0.000,0.000).angle(23.678,0.000,0.000)==Catch::Approx(0.0).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angle(-18.90589543,23.94807212,31.77961845)==Catch::Approx(0.0).epsilon(1.0e-9));
-      CHECK(Vector3D(3.436,0,0).angle(0,-5.346,0)==Catch::Approx(1.570796327).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angle(21.25783696,19.24983078,-1.85961620)==Catch::Approx(1.570796327).epsilon(1.0e-9));
-      CHECK(Vector3D(0.000,2.567,0.000).angle(0.000,-14.346,0.000)==Catch::Approx(3.141592653).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angle(12.33284893,-15.62200303,-20.73074162)==Catch::Approx(3.141592653).epsilon(1.0e-9));
+      CHECK_THAT(Vector3D(1.235,0.000,0.000).angle(23.678,0.000,0.000),Catch::Matchers::WithinAbs(0.0,delta));
+      CHECK_THAT(Vector3D(-25.017,31.689,42.052).angle(-18.90589543,23.94807212,31.77961845),Catch::Matchers::WithinAbs(0.0,delta));
+      CHECK_THAT(Vector3D(3.436,0,0).angle(0,-5.346,0),Catch::Matchers::WithinAbs(1.570796327,delta));
+      CHECK_THAT(Vector3D(-25.017,31.689,42.052).angle(21.25783696,19.24983078,-1.85961620),Catch::Matchers::WithinAbs(1.570796327,delta));
+      CHECK_THAT(Vector3D(0.000,2.567,0.000).angle(0.000,-14.346,0.000),Catch::Matchers::WithinAbs(3.141592653,delta));
+      CHECK_THAT(Vector3D(-25.017,31.689,42.052).angle(12.33284893,-15.62200303,-20.73074162),Catch::Matchers::WithinAbs(3.141592653,delta));
    }
 
    SECTION("Radians real instance")
    {
-      CHECK(Vector3D(39.216,-14.235,42.094).angle(Vector3D(46.412,47.500,-13.349))==Catch::Approx(1.42530773).epsilon(1.0e-9));
-      CHECK(Vector3D(-8.418,37.961,-20.712).angle(Vector3D(-25.017,31.689,42.052),Vector3D::Radians)==Catch::Approx(1.3579370325).epsilon(1.0e-9));
-      CHECK(Vector3D(-46.846,-38.050,15.318).angle(Vector3D(33.166,22.818,14.322))==Catch::Approx(2.546064985).epsilon(1.0e-9));
+      CHECK_THAT(Vector3D(39.216,-14.235,42.094).angle(Vector3D(46.412,47.500,-13.349)),Catch::Matchers::WithinAbs(1.42530773,delta));
+      CHECK_THAT(Vector3D(-8.418,37.961,-20.712).angle(Vector3D(-25.017,31.689,42.052)),Catch::Matchers::WithinAbs(1.3579370325,delta));
+      CHECK_THAT(Vector3D(-46.846,-38.050,15.318).angle(Vector3D(33.166,22.818,14.322)),Catch::Matchers::WithinAbs(2.546064985,delta));
+      CHECK_THAT(Vector3D(39.216,-14.235,42.094).angle(Vector3D(46.412,47.500,-13.349),Vector3D::Radians),Catch::Matchers::WithinAbs(1.42530773,delta));
+      CHECK_THAT(Vector3D(-8.418,37.961,-20.712).angle(Vector3D(-25.017,31.689,42.052),Vector3D::Radians),Catch::Matchers::WithinAbs(1.3579370325,delta));
+      CHECK_THAT(Vector3D(-46.846,-38.050,15.318).angle(Vector3D(33.166,22.818,14.322),Vector3D::Radians),Catch::Matchers::WithinAbs(2.546064985,delta));
    }
 
    SECTION("Radians real coordinates")
    {
-      CHECK(Vector3D(39.216,-14.235,42.094).angle(46.412,47.500,-13.349)==Catch::Approx(1.42530773).epsilon(1.0e-9));
-      CHECK(Vector3D(-8.418,37.961,-20.712).angle(-25.017,31.689,42.052,Vector3D::Radians)==Catch::Approx(1.3579370325).epsilon(1.0e-9));
-      CHECK(Vector3D(-46.846,-38.050,15.318).angle(33.166,22.818,14.322)==Catch::Approx(2.546064985).epsilon(1.0e-9));
+      CHECK_THAT(Vector3D(39.216,-14.235,42.094).angle(46.412,47.500,-13.349),Catch::Matchers::WithinAbs(1.42530773,delta));
+      CHECK_THAT(Vector3D(-8.418,37.961,-20.712).angle(-25.017,31.689,42.052),Catch::Matchers::WithinAbs(1.3579370325,delta));
+      CHECK_THAT(Vector3D(-46.846,-38.050,15.318).angle(33.166,22.818,14.322),Catch::Matchers::WithinAbs(2.546064985,delta));
+      CHECK_THAT(Vector3D(39.216,-14.235,42.094).angle(46.412,47.500,-13.349,Vector3D::Radians),Catch::Matchers::WithinAbs(1.42530773,delta));
+      CHECK_THAT(Vector3D(-8.418,37.961,-20.712).angle(-25.017,31.689,42.052,Vector3D::Radians),Catch::Matchers::WithinAbs(1.3579370325,delta));
+      CHECK_THAT(Vector3D(-46.846,-38.050,15.318).angle(33.166,22.818,14.322,Vector3D::Radians),Catch::Matchers::WithinAbs(2.546064985,delta));
    }
 
    SECTION("Degrees simple instance")
    {
-      CHECK(Vector3D(1.235,0.000,0.000).angle(Vector3D(23.678,0.000,0.000),Vector3D::Degrees)==Catch::Approx(0.0).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angle(Vector3D(-18.90589543,23.94807212,31.77961845),Vector3D::Degrees)==Catch::Approx(0.0).epsilon(1.0e-9));
-      CHECK(Vector3D(3.436,0,0).angle(Vector3D(0,-5.346,0),Vector3D::Degrees)==Catch::Approx(90.0).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angle(Vector3D(21.25783696,19.24983078,-1.85961620),Vector3D::Degrees)==Catch::Approx(90.0).epsilon(1.0e-9));
-      CHECK(Vector3D(0.000,2.567,0.000).angle(Vector3D(0.000,-14.346,0.000),Vector3D::Degrees)==Catch::Approx(180.0).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angle(Vector3D(12.33284893,-15.62200303,-20.73074162),Vector3D::Degrees)==Catch::Approx(180.0).epsilon(1.0e-9));
+      CHECK_THAT(Vector3D(1.235,0.000,0.000).angle(Vector3D(23.678,0.000,0.000),Vector3D::Degrees),Catch::Matchers::WithinAbs(0.0,delta));
+      CHECK_THAT(Vector3D(-25.017,31.689,42.052).angle(Vector3D(-18.90589543,23.94807212,31.77961845),Vector3D::Degrees),Catch::Matchers::WithinAbs(0.0,delta));
+      CHECK_THAT(Vector3D(3.436,0,0).angle(Vector3D(0,-5.346,0),Vector3D::Degrees),Catch::Matchers::WithinAbs(90.0,delta));
+      CHECK_THAT(Vector3D(-25.017,31.689,42.052).angle(Vector3D(21.25783696,19.24983078,-1.85961620),Vector3D::Degrees),Catch::Matchers::WithinAbs(90.0,delta));
+      CHECK_THAT(Vector3D(0.000,2.567,0.000).angle(Vector3D(0.000,-14.346,0.000),Vector3D::Degrees),Catch::Matchers::WithinAbs(180.0,delta));
+      CHECK_THAT(Vector3D(-25.017,31.689,42.052).angle(Vector3D(12.33284893,-15.62200303,-20.73074162),Vector3D::Degrees),Catch::Matchers::WithinAbs(180.0,delta));
    }
 
    SECTION("Degrees simple coordinates")
    {
-      CHECK(Vector3D(1.235,0.000,0.000).angle(23.678,0.000,0.000,Vector3D::Degrees)==Catch::Approx(0.0).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angle(-18.90589543,23.94807212,31.77961845,Vector3D::Degrees)==Catch::Approx(0.0).epsilon(1.0e-9));
-      CHECK(Vector3D(3.436,0,0).angle(0,-5.346,0,Vector3D::Degrees)==Catch::Approx(90.0).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angle(21.25783696,19.24983078,-1.85961620,Vector3D::Degrees)==Catch::Approx(90.0).epsilon(1.0e-9));
-      CHECK(Vector3D(0.000,2.567,0.000).angle(0.000,-14.346,0.000,Vector3D::Degrees)==Catch::Approx(180.0).epsilon(1.0e-9));
-      CHECK(Vector3D(-25.017,31.689,42.052).angle(12.33284893,-15.62200303,-20.73074162,Vector3D::Degrees)==Catch::Approx(180.0).epsilon(1.0e-9));
+      CHECK_THAT(Vector3D(1.235,0.000,0.000).angle(23.678,0.000,0.000,Vector3D::Degrees),Catch::Matchers::WithinAbs(0.0,delta));
+      CHECK_THAT(Vector3D(-25.017,31.689,42.052).angle(-18.90589543,23.94807212,31.77961845,Vector3D::Degrees),Catch::Matchers::WithinAbs(0.0,delta));
+      CHECK_THAT(Vector3D(3.436,0,0).angle(0,-5.346,0,Vector3D::Degrees),Catch::Matchers::WithinAbs(90.0,delta));
+      CHECK_THAT(Vector3D(-25.017,31.689,42.052).angle(21.25783696,19.24983078,-1.85961620,Vector3D::Degrees),Catch::Matchers::WithinAbs(90.0,delta));
+      CHECK_THAT(Vector3D(0.000,2.567,0.000).angle(0.000,-14.346,0.000,Vector3D::Degrees),Catch::Matchers::WithinAbs(180.0,delta));
+      CHECK_THAT(Vector3D(-25.017,31.689,42.052).angle(12.33284893,-15.62200303,-20.73074162,Vector3D::Degrees),Catch::Matchers::WithinAbs(180.0,delta));
    }
 
    SECTION("Degrees real instance")
    {
-      CHECK(Vector3D(39.216,-14.235,42.094).angle(Vector3D(46.412,47.500,-13.349),Vector3D::Degrees)==Catch::Approx(81.66411745).epsilon(1.0e-9));
-      CHECK(Vector3D(-8.418,37.961,-20.712).angle(Vector3D(-25.017,31.689,42.052),Vector3D::Degrees)==Catch::Approx(77.80406081).epsilon(1.0e-9));
-      CHECK(Vector3D(-46.846,-38.050,15.318).angle(Vector3D(33.166,22.818,14.322),Vector3D::Degrees)==Catch::Approx(145.87877803).epsilon(1.0e-9));
+      CHECK_THAT(Vector3D(39.216,-14.235,42.094).angle(Vector3D(46.412,47.500,-13.349),Vector3D::Degrees),Catch::Matchers::WithinAbs(81.66411745,delta));
+      CHECK_THAT(Vector3D(-8.418,37.961,-20.712).angle(Vector3D(-25.017,31.689,42.052),Vector3D::Degrees),Catch::Matchers::WithinAbs(77.80406081,delta));
+      CHECK_THAT(Vector3D(-46.846,-38.050,15.318).angle(Vector3D(33.166,22.818,14.322),Vector3D::Degrees),Catch::Matchers::WithinAbs(145.87877803,delta));
    }
 
    SECTION("Degrees real coordinates")
    {
-      CHECK(Vector3D(39.216,-14.235,42.094).angle(46.412,47.500,-13.349,Vector3D::Degrees)==Catch::Approx(81.66411745).epsilon(1.0e-9));
-      CHECK(Vector3D(-8.418,37.961,-20.712).angle(-25.017,31.689,42.052,Vector3D::Degrees)==Catch::Approx(77.80406081).epsilon(1.0e-9));
-      CHECK(Vector3D(-46.846,-38.050,15.318).angle(33.166,22.818,14.322,Vector3D::Degrees)==Catch::Approx(145.87877803).epsilon(1.0e-9));
+      CHECK_THAT(Vector3D(39.216,-14.235,42.094).angle(46.412,47.500,-13.349,Vector3D::Degrees),Catch::Matchers::WithinAbs(81.66411745,delta));
+      CHECK_THAT(Vector3D(-8.418,37.961,-20.712).angle(-25.017,31.689,42.052,Vector3D::Degrees),Catch::Matchers::WithinAbs(77.80406081,delta));
+      CHECK_THAT(Vector3D(-46.846,-38.050,15.318).angle(33.166,22.818,14.322,Vector3D::Degrees),Catch::Matchers::WithinAbs(145.87877803,delta));
    }
 }
