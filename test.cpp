@@ -94,7 +94,7 @@ TEST_CASE("Overloads check")
       CHECK(vector2.z()==rz);
    }
 
-   SECTION("Compare")
+   SECTION("Equality")
    {
       vector2.set(vector1);
       CHECK(vector2==vector1);
@@ -103,6 +103,29 @@ TEST_CASE("Overloads check")
       vector2.set(vector1.x()+1.0,vector1.y()-2.0,vector1.z()+3.0);
       CHECK(vector2!=vector1);
       CHECK(vector1!=vector2);
+   }
+
+   SECTION("Comparison")
+   {
+      Vector3D vec1(-4.1688734,-18.39178297,-2.31577495);
+      Vector3D vec2(9.35135936,16.52288031,0.73925923);
+      Vector3D vec3(15.5702147,-11.62387025,-1.64440101);
+      CHECK(vec3>vec1);
+      CHECK(vec3>vec2);
+      CHECK_FALSE(vec1>vec3);
+      CHECK_FALSE(vec2>vec3);
+      CHECK(vec3>=vec1);
+      CHECK(vec3>=vec2);
+      CHECK_FALSE(vec1>=vec3);
+      CHECK_FALSE(vec2>=vec3);
+      CHECK(vec1<vec3);
+      CHECK(vec2<vec3);
+      CHECK_FALSE(vec3<vec1);
+      CHECK_FALSE(vec3<vec2);
+      CHECK(vec1<=vec3);
+      CHECK(vec2<=vec3);
+      CHECK_FALSE(vec3<=vec1);
+      CHECK_FALSE(vec3<=vec2);
    }
 
    SECTION("Addition")

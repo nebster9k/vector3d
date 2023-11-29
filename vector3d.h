@@ -38,6 +38,10 @@ class Vector3D
       friend const Vector3D operator-(const Vector3D &vector1, const Vector3D &vector2);
       friend bool operator==(const Vector3D &vector1, const Vector3D &vector2);
       friend bool operator!=(const Vector3D &vector1, const Vector3D &vector2);
+      friend bool operator>(const Vector3D &vector1, const Vector3D &vector2);
+      friend bool operator>=(const Vector3D &vector1, const Vector3D &vector2);
+      friend bool operator<(const Vector3D &vector1, const Vector3D &vector2);
+      friend bool operator<=(const Vector3D &vector1, const Vector3D &vector2);
       friend std::ostream& operator<<(std::ostream& out, const Vector3D &vector);
 
       double x() const;

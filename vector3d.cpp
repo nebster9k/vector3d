@@ -84,6 +84,26 @@ bool operator!=(const Vector3D &vector1, const Vector3D &vector2)
    if(Vector3D::isNotEqual(vector1.pX,vector2.pX) || Vector3D::isNotEqual(vector1.pY,vector2.pY) || Vector3D::isNotEqual(vector1.pZ,vector2.pZ)) return true; else return false;
 }
 
+bool operator>(const Vector3D &vector1, const Vector3D &vector2)
+{
+   return vector1.length()>vector2.length();
+}
+
+bool operator>=(const Vector3D &vector1, const Vector3D &vector2)
+{
+   return vector1.length()>=vector2.length();
+}
+
+bool operator<(const Vector3D &vector1, const Vector3D &vector2)
+{
+   return vector1.length()<vector2.length();
+}
+
+bool operator<=(const Vector3D &vector1, const Vector3D &vector2)
+{
+   return vector1.length()<=vector2.length();
+}
+
 std::ostream& operator<<(std::ostream& out, const Vector3D &vector)
 {
    std::string str="Vector3D(";
